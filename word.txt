@@ -1,0 +1,38 @@
+references: n.标记，参考
+fickle: ajd.浮躁的
+priorities:  n.优先权
+deployment: n.部署
+backend: n.编译
+nifty: adj. 极好的
+recommend: vt. 推荐
+community: n. 社区
+insights: n. 领悟，洞察力
+newsletter: n.时事通讯
+concept: n. 观念，概念
+injection: n.注射，入轨
+proxies: n.代表权
+duplication: n.复制
+reusable : adj. 可复用的
+integrate： vi.使结合
+gateway: n.入口
+
+
+self-motivation
+credentials: .n 证件
+coupon: .n 优惠劵
+desired: adj.渴望的 v.要求
+subscription: n.会员费，捐款
+discounts: n. 优惠
+charge：n.要价，指责
+statement: n.声明，结算单
+express: adj.特快的 n.快递服务
+notification: n.通知，公告
+dynamically： adj. 动态的
+seperate: 分开
+related: adj. 有关系的
+logic : .adj 逻辑
+account：n.账户，账单
+even: adj. 实际上
+tail: n.尾巴，踪迹
+feature: n.特征，特点
+critical: adj.关键的
