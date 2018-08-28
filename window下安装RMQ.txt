@@ -1,1 +1,55 @@
+安装教程
 https://www.cnblogs.com/88phper/p/8296066.html
+
+开启好服务后，来进行composer（在框架的根目录下composer就行） 进行php的连接RMQ操作：
+代码如下：
+
+<?php
+namespace Home\Controller;
+require APP_PATH."../vendor/autoload.php";
+use think\Controller;
+use PhpAmqpLib\Connection\AMQPStreamConnection;
+use PhpAmqpLib\Message\AMQPMessage;
+
+class RmqController extends Controller{
+  //生产者 可在浏览器运行
+	public function product(){
+		$connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
+		$channel = $connection->channel();
+
+		$channel->queue_declare('hello', false, false, false, false);
+
+		$content = array('name'=>'Jackey_'.mt_rand(1,100), 'phone'=>'1234567891'.mt_rand(1,100));
+		$msg = new AMQPMessage(json_encode($content));
+		$channel->basic_publish($msg, '', 'hello');
+
+		echo " [x] Sent 'Hello World!'\n";
+		$channel->close();
+		$connection->close();
+	}
+
+	//消费者 必须在cli运行，也就是服务器端接收生产者的数据后，进行业务逻辑处理
+	public function receive(){
+		set_time_limit(0);
+		$connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
+		$channel = $connection->channel();
+
+		$channel->queue_declare('hello', false, false, false, false);
+
+		echo " [*] Waiting for messages. To exit press CTRL+C\n";
+
+		$callback = function ($msg) {
+			$data = json_decode($msg->body,true);
+			M()->table('rmq')->add($data);
+		  	echo ' [x] Received ', $msg->body, "\n";
+		};
+
+		$channel->basic_consume('hello', '', false, true, false, false, $callback);
+
+		while (count($channel->callbacks)) {
+		    $channel->wait();
+		}
+	}
+  
+  官方操作命令,php操作RMQ的 ：
+  https://www.rabbitmq.com/tutorials/tutorial-one-php.html
